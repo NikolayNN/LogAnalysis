@@ -10,9 +10,9 @@ import java.util.Properties;
  */
 public class Utils {
 
-    private final String propertyFile = "application.properties";
+    private static final String propertyFile = "application.properties";
 
-        public static String getProperty(String propertyFile, String propertyName) {
+        public static String getProperty(String propertyName) {
             Properties properties = new Properties();
             ClassLoader loader = Main.class.getClassLoader();
             try {

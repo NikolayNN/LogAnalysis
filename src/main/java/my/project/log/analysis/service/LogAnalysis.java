@@ -27,17 +27,16 @@ public class LogAnalysis {
         this.fileWriter = fileWriter;
     }
 
-//    public void runAnalys (String path){
-//        try (Stream<String> stream = Files.lines(Paths.get("res/nashorn1.js"))) {
-//            stream
-//                    .filter(line -> contains(line, t))
-//                    .map(line -> new Obj(line))
-//                    .forEachOrdered(System.out::println);
-//        }catch (IOException e){
-//            throw new LogAnalysisException(e);
-//        }
-//
-//    }
+    public void runAnalys (String path){
+        try (Stream<String> stream = Files.lines(Paths.get("res/nashorn1.js"))) {
+            stream
+                    .filter(line -> contains(line, t))
+                    .map(line -> new Obj(line))
+                    .forEachOrdered(System.out::println);
+        }catch (IOException e){
+            throw new LogAnalysisException(e);
+        }
+    }
 
 //    public static void main(String[] args) {
 //        String[] t = new String[]{"qs", "we"};
