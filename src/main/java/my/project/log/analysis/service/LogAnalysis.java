@@ -28,6 +28,7 @@ public class LogAnalysis {
 
     public void runAnalys (String path){
         Set<Path> filesForAnalys = pathReader.getFilePathesListInDirectory(path);
+
     }
 
 //    public static void main(String[] args) {
