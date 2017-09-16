@@ -1,23 +1,24 @@
 package my.project.log.analysis.service.filters.impl.impl;
 
+import lombok.AllArgsConstructor;
+import my.project.log.analysis.exception.LogFilterInteruptingException;
 import my.project.log.analysis.model.LogMessage;
 import my.project.log.analysis.service.filters.impl.LogFilter;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author Nikolay Horushko
  */
+@AllArgsConstructor
 public class LogFilterByUserName implements LogFilter {
 
-    private List<String> usernames;
-
-    public LogFilterByUserName(List<String> usernames) {
-        this.usernames = usernames;
-    }
+    private Set<String> userNames;
 
     @Override
     public void doFilter(LogMessage logMessage) {
-        //todo impl
+        if (!userNames.contains(logMessage.getUserName())){
+            throw new LogFilterInteruptingException();
+        }
     }
 }
