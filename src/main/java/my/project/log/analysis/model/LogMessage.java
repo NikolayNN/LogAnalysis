@@ -1,10 +1,9 @@
 package my.project.log.analysis.model;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author Nikolay Horushko
@@ -12,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 public class LogMessage {
-    private Date date;
+    private LocalDateTime date;
     private String userName;
     private String customMessage;
 }
