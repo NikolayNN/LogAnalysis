@@ -13,12 +13,11 @@ import java.time.format.DateTimeFormatter;
 public class LogMessageParcer {
 
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(Utils.getProperty("log.date.format"));
-    
-    //2017-09-16 12:11:06 | UserName1 | CustomMessage
-    public LogMessage parce(String message){
+
+    public LogMessage parce(String message) {
 
         String[] messageTokens = message.split("\\|");
-        if(messageTokens.length != 3){
+        if (messageTokens.length != 3) {
             throw new LogAnalysisException(String.format("The log message '%s' has not valid format", message));
         }
 
@@ -29,7 +28,7 @@ public class LogMessageParcer {
         return new LogMessage(stringToDate(dateInString), userName, customMessage);
     }
 
-    private LocalDateTime stringToDate (String dateInString){
+    private LocalDateTime stringToDate(String dateInString) {
         return LocalDateTime.parse(dateInString, dateFormatter);
     }
 }

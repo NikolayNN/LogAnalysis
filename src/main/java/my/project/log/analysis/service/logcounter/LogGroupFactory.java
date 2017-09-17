@@ -9,20 +9,20 @@ import my.project.log.analysis.service.logcounter.impl.*;
  */
 public class LogGroupFactory {
 
-    public LogGroup createLogGroup(GroupBy groupBy){
-        if(groupBy == GroupBy.HOUR){
+    public LogGroup createLogGroup(GroupBy groupBy) {
+        if (groupBy == GroupBy.HOUR) {
             return new HourLogGroup();
         }
-        if(groupBy == GroupBy.DAY){
+        if (groupBy == GroupBy.DAY) {
             return new DayLogGroup();
         }
-        if(groupBy == GroupBy.MONTH){
+        if (groupBy == GroupBy.MONTH) {
             return new MonthLogGroup();
         }
-        if(groupBy == GroupBy.YEAR){
+        if (groupBy == GroupBy.YEAR) {
             return new YearLogGroup();
         }
-        if(groupBy == GroupBy.USERNAME){
+        if (groupBy == GroupBy.USERNAME) {
             return new UserNameGroup();
         }
         throw new LogAnalysisException(String.format("Unexpected group Parameter '%s'", groupBy));

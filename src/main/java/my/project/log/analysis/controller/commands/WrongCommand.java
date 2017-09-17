@@ -6,18 +6,19 @@ import my.project.log.analysis.view.View;
  * @author Nikolay Horushko
  */
 public class WrongCommand extends Command {
+    
     public WrongCommand(View view) {
         super(view);
     }
 
     @Override
     public String getName() {
-        return null;
+        return "";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "";
     }
 
     @Override

@@ -19,9 +19,9 @@ public class LogFilterByTime implements LogFilter {
 
     @Override
     public void doFilter(LogMessage logMessage) {
-        LocalDateTime currentDate = logMessage.getDate();
+        LocalDateTime date = logMessage.getDate();
 
-        if(currentDate.isBefore(startDate) || currentDate.isAfter(finishDate)){
+        if(date.isBefore(startDate) || date.isAfter(finishDate)){
             throw new LogFilterInteruptingException();
         }
     }

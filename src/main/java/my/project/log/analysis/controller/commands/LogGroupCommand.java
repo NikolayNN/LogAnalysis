@@ -17,15 +17,14 @@ import java.util.Set;
  * @author Nikolay Horushko
  */
 public class LogGroupCommand extends Command {
+
     private final String USERNAME_FILTER_TOKEN = Utils.getProperty("command.analyse.token.username.filter");
     private final String START_PERIOD_FILTER_TOKEN = Utils.getProperty("command.analyse.token.startperiod.filter");
     private final String FINISH_PERIOD_FILTER_TOKEN = Utils.getProperty("command.analyse.token.finishperiod.filter");
     private final String CUSTOM_MESSAGE_PATTERN_TOKEN = Utils.getProperty("command.analyse.token.messagepattern.filter");
     private final String GROUP_BY_TOKEN = Utils.getProperty("command.analyse.token.groupby");
+    private final String COMMAND_DESCRIPTION = Utils.getProperty("command.analyse.description");
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Utils.getProperty("command.analyse.time.format"));
-
-    private String COMMAND_DESCRIPTION = Utils.getProperty("command.analyse.description");
-
     private String[] commandParameters;
 
     public LogGroupCommand(View view, LogAnalyser logAnalyser) {
@@ -91,7 +90,6 @@ public class LogGroupCommand extends Command {
         return "";
     }
 
-
     @Override
     public String getName() {
         return COMMAND_LOG_ANALYSIS;
@@ -101,5 +99,4 @@ public class LogGroupCommand extends Command {
     public String getDescription() {
         return COMMAND_DESCRIPTION;
     }
-
 }

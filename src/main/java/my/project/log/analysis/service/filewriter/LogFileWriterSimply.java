@@ -1,8 +1,6 @@
 package my.project.log.analysis.service.filewriter;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import my.project.log.analysis.exception.LogAnalysisException;
 
 import java.io.BufferedWriter;
@@ -20,10 +18,6 @@ import java.util.Map;
 public class LogFileWriterSimply implements LogFileWriter {
 
     private String pathToFile;
-
-    public void setPathToFile(String pathToFile) {
-        this.pathToFile = pathToFile;
-    }
 
     @Override
     public void writeToFile(Map<String, Integer> data) {
@@ -49,7 +43,7 @@ public class LogFileWriterSimply implements LogFileWriter {
                 Files.createDirectories(path.getParent());
                 Files.createFile(path);
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new LogAnalysisException(e);
         }
     }

@@ -25,12 +25,17 @@ public class SetInDirectoryCommand extends Command {
         view.write(String.format("set new path for input directory %s", pathToInputDirectory));
     }
 
-    protected String getPathToFile() {
-        String[] splittedCommand = command.split(" ");
-        if (splittedCommand.length != 2) {
-            throw new WrongCommandFormatException(String.format("ERROR. Command contains %s parameters, but expect 2", splittedCommand.length));
+    private String getPathToFile() {
+        final int EXPECTED_NUMBER_PARAMETERS = 2;
+        final int POSITION_SECOND_PARAMETER = 1;
+        final String PARAMETERS_SEPARATOR = " ";
+
+        String[] splittedCommand = command.split(PARAMETERS_SEPARATOR);
+        if (splittedCommand.length != EXPECTED_NUMBER_PARAMETERS) {
+            throw new WrongCommandFormatException(String.format("ERROR. Command contains %s parameters, " +
+                    "but expect 2", splittedCommand.length));
         }
-        String pathToFile = splittedCommand[1];
+        String pathToFile = splittedCommand[POSITION_SECOND_PARAMETER];
         Matcher matcher = pathToFilePattern.matcher(pathToFile);
         if (matcher.matches()) {
             return pathToFile;

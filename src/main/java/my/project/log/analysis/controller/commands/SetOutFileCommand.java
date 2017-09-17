@@ -20,7 +20,6 @@ public class SetOutFileCommand extends Command {
         super(view, logAnalyser);
     }
 
-
     @Override
     public void execute() {
         pathToOutputFile = getPathToFile();
@@ -29,11 +28,16 @@ public class SetOutFileCommand extends Command {
     }
 
     private String getPathToFile() {
-        String[] splittedCommand = command.split(" ");
-        if (splittedCommand.length != 2) {
-            throw new WrongCommandFormatException(String.format("ERROR. Command contains %s parameters, but expect 2", splittedCommand.length));
+        final int EXPECTED_NUMBER_PARAMETERS = 2;
+        final int POSITION_SECOND_PARAMETER = 1;
+        final String PARAMETER_SEPARATOR = " ";
+
+        String[] splittedCommand = command.split(PARAMETER_SEPARATOR);
+        if (splittedCommand.length != EXPECTED_NUMBER_PARAMETERS) {
+            throw new WrongCommandFormatException(String.format("ERROR. Command contains %s parameters, " +
+                    " but expect 2", splittedCommand.length));
         }
-        String pathToFile = splittedCommand[1];
+        String pathToFile = splittedCommand[POSITION_SECOND_PARAMETER];
         Matcher matcher = pathToFilePattern.matcher(pathToFile);
         if (matcher.matches()) {
             return pathToFile;

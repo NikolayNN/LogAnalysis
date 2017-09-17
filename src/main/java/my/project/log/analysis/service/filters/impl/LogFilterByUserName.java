@@ -17,7 +17,7 @@ public class LogFilterByUserName implements LogFilter {
 
     @Override
     public void doFilter(LogMessage logMessage) {
-        if (!userNames.contains(logMessage.getUserName())){
+        if (!userNames.contains(logMessage.getUserName())) {
             throw new LogFilterInteruptingException();
         }
     }

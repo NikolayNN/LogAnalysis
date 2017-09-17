@@ -23,9 +23,11 @@ public class CommandFactory {
     }
 
     public Command createCommand(String source) {
-        String commandStr = source.split(" ")[0];
+        final int COMMAND_NAME_POSITION = 0;
+        
+        String commandName = source.split(" ")[COMMAND_NAME_POSITION];
         for (Command command : availableCommands) {
-            if (command.getName().equalsIgnoreCase(commandStr)) {
+            if (command.getName().equalsIgnoreCase(commandName)) {
                 command.setup(source);
                 return command;
             }

@@ -4,10 +4,12 @@ package my.project.log.analysis.model;
  * @author Nikolay Horushko
  */
 public enum GroupBy {
+    
     HOUR("hour"), DAY("day"), MONTH("month"), YEAR("year"), USERNAME("username");
 
-    private  String code;
-    private GroupBy(String code){
+    private String code;
+
+    GroupBy(String code) {
         this.code = code;
     }
 

@@ -7,6 +7,7 @@ import my.project.log.analysis.view.View;
  * @author Nikolay Horushko
  */
 public class HelpCommand extends Command {
+
     private final String NAME = COMMAND_HELP;
 
     public HelpCommand(View view) {

@@ -21,7 +21,7 @@ public class LogFilterByCustomMessage implements LogFilter {
     public void doFilter(LogMessage logMessage) {
         String customMessage = logMessage.getCustomMessage();
         for (String pattern : patterns) {
-            if(customMessage.contains(pattern)){
+            if (customMessage.contains(pattern)) {
                 return;
             }
         }

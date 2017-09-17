@@ -9,10 +9,6 @@ public class LogAnalysisException extends RuntimeException {
         super(message);
     }
 
-    public LogAnalysisException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
     public LogAnalysisException(Throwable cause) {
         super(cause);
     }

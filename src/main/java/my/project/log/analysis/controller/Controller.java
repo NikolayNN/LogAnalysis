@@ -9,8 +9,6 @@ import my.project.log.analysis.utils.Utils;
 import my.project.log.analysis.view.Console;
 import my.project.log.analysis.view.View;
 
-import javax.rmi.CORBA.Util;
-
 /**
  * @author Nikolay Horushko
  */
