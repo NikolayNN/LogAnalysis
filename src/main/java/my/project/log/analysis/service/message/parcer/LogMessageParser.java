@@ -14,18 +14,18 @@ public class LogMessageParser {
 
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(Utils.getProperty("log.date.format"));
 
-    public LogMessage parce(String message) {
+    public LogMessage parce(String sourceMessage) {
 
-        String[] messageTokens = message.split("\\|");
+        String[] messageTokens = sourceMessage.split("\\|");
         if (messageTokens.length != 3) {
-            throw new LogAnalysisException(String.format("The log message '%s' has not valid format", message));
+            throw new LogAnalysisException(String.format("The log message '%s' has not valid format", sourceMessage));
         }
 
         String dateInString = messageTokens[0].trim();
         String userName = messageTokens[1].trim();
         String customMessage = messageTokens[2].trim();
 
-        return new LogMessage(stringToDate(dateInString), userName, customMessage);
+        return new LogMessage(stringToDate(dateInString), userName, customMessage, sourceMessage);
     }
 
     private LocalDateTime stringToDate(String dateInString) {

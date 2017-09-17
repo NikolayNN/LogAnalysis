@@ -14,4 +14,5 @@ public class LogMessage {
     private LocalDateTime date;
     private String userName;
     private String customMessage;
+    private String source;
 }
