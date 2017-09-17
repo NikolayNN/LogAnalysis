@@ -1,29 +1,29 @@
-package my.project.log.analysis.service.logcounter;
+package my.project.log.analysis.service.loggroup;
 
 import my.project.log.analysis.exception.LogAnalysisException;
 import my.project.log.analysis.model.GroupBy;
-import my.project.log.analysis.service.logcounter.impl.*;
+import my.project.log.analysis.service.loggroup.impl.*;
 
 /**
  * @author Nikolay Horushko
  */
-public class LogGroupFactory {
+public class LogBuncherFactory {
 
-    public LogGroup createLogGroup(GroupBy groupBy) {
+    public LogBuncher createLogGroup(GroupBy groupBy) {
         if (groupBy == GroupBy.HOUR) {
-            return new HourLogGroup();
+            return new HourLogBuncher();
         }
         if (groupBy == GroupBy.DAY) {
-            return new DayLogGroup();
+            return new DayLogBuncher();
         }
         if (groupBy == GroupBy.MONTH) {
-            return new MonthLogGroup();
+            return new MonthLogBuncher();
         }
         if (groupBy == GroupBy.YEAR) {
-            return new YearLogGroup();
+            return new YearLogBuncher();
         }
         if (groupBy == GroupBy.USERNAME) {
-            return new UserNameGroup();
+            return new UserNameBuncher();
         }
         throw new LogAnalysisException(String.format("Unexpected group Parameter '%s'", groupBy));
     }

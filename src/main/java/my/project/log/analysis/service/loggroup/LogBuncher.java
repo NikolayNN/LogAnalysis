@@ -1,4 +1,4 @@
-package my.project.log.analysis.service.logcounter;
+package my.project.log.analysis.service.loggroup;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public abstract class LogGroup {
+public abstract class LogBuncher {
 
     private Integer FIRST_ELEMENT = 1;
 

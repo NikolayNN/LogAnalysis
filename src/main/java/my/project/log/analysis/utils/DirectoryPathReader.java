@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  */
 public class DirectoryPathReader {
 
-    public static List<Path> getFilePathesListInDirectory(String path) {
+    public static List<Path> getFilePathesInDirectory(String path) {
         List<Path> result = new LinkedList<>();
         try(Stream<Path> stream = Files.walk(Paths.get(path))) {
             stream

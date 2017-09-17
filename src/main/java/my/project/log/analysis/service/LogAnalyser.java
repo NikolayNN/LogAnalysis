@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import my.project.log.analysis.exception.LogAnalysisException;
 import my.project.log.analysis.service.filewriter.LogFileWriter;
-import my.project.log.analysis.service.filters.FilterChain;
-import my.project.log.analysis.service.logcounter.LogGroup;
+import my.project.log.analysis.service.filters.FilterChainExecutor;
+import my.project.log.analysis.service.loggroup.LogBuncher;
 import my.project.log.analysis.utils.LogMessageParser;
 import my.project.log.analysis.utils.DirectoryPathReader;
 
@@ -27,8 +27,8 @@ import java.util.stream.Stream;
 @Setter
 public class LogAnalyser {
 
-    private FilterChain filterChain;
-    private LogGroup logGroup;
+    private FilterChainExecutor logFilterChainExecutor;
+    private LogBuncher logBuncher;
     private LogFileWriter logFileWriter;
 
     public LogAnalyser(LogFileWriter logFileWriter) {
@@ -37,14 +37,14 @@ public class LogAnalyser {
 
     public void runAnalysis(String pathToDirectoryWithLogs, int threadCount) {
         ExecutorService executor = Executors.newFixedThreadPool(threadCount);
-        for (Path logFile : DirectoryPathReader.getFilePathesListInDirectory(pathToDirectoryWithLogs)) {
+        for (Path logFile : DirectoryPathReader.getFilePathesInDirectory(pathToDirectoryWithLogs)) {
             executor.execute(new Reader(logFile));
         }
         executor.shutdown();
         while (!executor.isTerminated()) {
         }
 
-        logFileWriter.writeToFile(new TreeMap<>(logGroup.getResultMap()));
+        logFileWriter.writeToFile(new TreeMap<>(logBuncher.getResultMap()));
     }
 
     private final class Reader implements Runnable {
@@ -60,8 +60,8 @@ public class LogAnalyser {
             try (Stream<String> stream = Files.lines(Paths.get(path.toUri()))) {
                 stream
                         .map(line -> LogMessageParser.parce(line))
-                        .filter(line -> filterChain.isFiltered(line))
-                        .forEach(logGroup::addToStatistic);
+                        .filter(line -> logFilterChainExecutor.isFiltered(line))
+                        .forEach(logBuncher::addToStatistic);
             } catch (IOException e) {
                 throw new LogAnalysisException(e);
             }

@@ -3,8 +3,8 @@ package my.project.log.analysis.controller.commands;
 import my.project.log.analysis.exception.WrongCommandFormatException;
 import my.project.log.analysis.model.GroupBy;
 import my.project.log.analysis.service.LogAnalyser;
-import my.project.log.analysis.service.filters.FilterChainFactory;
-import my.project.log.analysis.service.logcounter.LogGroupFactory;
+import my.project.log.analysis.service.filters.FilterChainExecutorFactory;
+import my.project.log.analysis.service.loggroup.LogBuncherFactory;
 import my.project.log.analysis.utils.Utils;
 import my.project.log.analysis.view.View;
 
@@ -49,9 +49,9 @@ public class LogGroupCommand extends Command {
             throw new WrongCommandFormatException("you should specify group parameter");
         }
 
-        logAnalyser.setFilterChain(new FilterChainFactory().createFilterChain(userNames, customMessagePattern,
+        logAnalyser.setLogFilterChain(new FilterChainExecutorFactory().createFilterChain(userNames, customMessagePattern,
                 startPeriod, finishPeriod));
-        logAnalyser.setLogGroup(new LogGroupFactory().createLogGroup(group));
+        logAnalyser.setLogGroup(new LogBuncherFactory().createLogGroup(group));
 
         logAnalyser.runAnalysis(pathToInputDirectory, threadCount);
         view.write("Ok. Result saved in the file " + pathToOutputFile);

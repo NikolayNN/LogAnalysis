@@ -1,6 +1,6 @@
 package my.project.log.analysis.service.filters.impl;
 
-import my.project.log.analysis.exception.LogFilterInteruptingException;
+import my.project.log.analysis.exception.LogFilterInterruptingException;
 import my.project.log.analysis.model.LogMessage;
 import my.project.log.analysis.service.filters.LogFilter;
 
@@ -25,6 +25,6 @@ public class LogFilterByCustomMessage implements LogFilter {
                 return;
             }
         }
-        throw new LogFilterInteruptingException();
+        throw new LogFilterInterruptingException();
     }
 }

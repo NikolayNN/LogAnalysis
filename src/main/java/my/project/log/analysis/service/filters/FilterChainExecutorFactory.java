@@ -12,12 +12,12 @@ import java.util.Set;
 /**
  * @author Nikolay Horushko
  */
-public class FilterChainFactory {
+public class FilterChainExecutorFactory {
 
-    public FilterChain createFilterChain(Set<String> userNames,
-                                  Set<String> customMessagePatterns,
-                                  LocalDateTime startDate,
-                                  LocalDateTime finishDate){
+    public FilterChainExecutor createFilterChain(Set<String> userNames,
+                                                 Set<String> customMessagePatterns,
+                                                 LocalDateTime startDate,
+                                                 LocalDateTime finishDate){
 
         List resultFilterChain = new ArrayList();
 
@@ -30,6 +30,6 @@ public class FilterChainFactory {
         if(customMessagePatterns.size() != 0){
             resultFilterChain.add(new LogFilterByCustomMessage(customMessagePatterns));
         }
-        return new FilterChain(resultFilterChain);
+        return new FilterChainExecutor(resultFilterChain);
     }
 }

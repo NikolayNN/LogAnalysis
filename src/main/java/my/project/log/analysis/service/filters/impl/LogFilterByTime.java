@@ -2,7 +2,7 @@ package my.project.log.analysis.service.filters.impl;
 
 
 import lombok.AllArgsConstructor;
-import my.project.log.analysis.exception.LogFilterInteruptingException;
+import my.project.log.analysis.exception.LogFilterInterruptingException;
 import my.project.log.analysis.model.LogMessage;
 import my.project.log.analysis.service.filters.LogFilter;
 
@@ -22,7 +22,7 @@ public class LogFilterByTime implements LogFilter {
         LocalDateTime date = logMessage.getDate();
 
         if(date.isBefore(startDate) || date.isAfter(finishDate)){
-            throw new LogFilterInteruptingException();
+            throw new LogFilterInterruptingException();
         }
     }
 }
