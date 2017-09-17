@@ -33,7 +33,7 @@ public class SetCountThreadCommand extends Command{
 
     @Override
     public String getName() {
-        return COMMAND_SET_COUNT_THREAD;
+        return Utils.getProperty("command.set-count-thread.name");
     }
 
     @Override

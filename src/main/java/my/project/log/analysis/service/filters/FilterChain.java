@@ -10,15 +10,15 @@ import java.util.List;
  */
 public class FilterChain {
 
-    List<LogFilter> logFilters;
+    List<LogFilter> logFiltersChain;
 
     public FilterChain(List<LogFilter> filterChain) {
-        this.logFilters = filterChain;
+        this.logFiltersChain = filterChain;
     }
 
     public boolean isFiltered(LogMessage logMessage) {
 
-        for (LogFilter logFilter : logFilters) {
+        for (LogFilter logFilter : logFiltersChain) {
             try {
                 logFilter.doFilter(logMessage);
             } catch (LogFilterInteruptingException e) {

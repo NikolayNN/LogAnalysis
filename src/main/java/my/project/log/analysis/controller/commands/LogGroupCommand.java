@@ -72,19 +72,21 @@ public class LogGroupCommand extends Command {
     }
 
     private Set<String> searchParametersByToken(String token) {
+        final int PARAMETER_POSITION = 1;
         Set<String> result = new HashSet<>();
         for (String commandParameter : commandParameters) {
             if (commandParameter.contains(token)) {
-                result.add(commandParameter.split(" ")[1]);
+                result.add(commandParameter.split(PARAMETERS_SEPARATOR)[PARAMETER_POSITION]);
             }
         }
         return result;
     }
 
     private String searchParameterByToken(String token) {
+        final int PARAMETER_POSITION = 1;
         for (String commandParameter : commandParameters) {
             if (commandParameter.contains(token)) {
-                return commandParameter.split(" ")[1];
+                return commandParameter.split(PARAMETERS_SEPARATOR)[PARAMETER_POSITION];
             }
         }
         return "";
@@ -92,7 +94,7 @@ public class LogGroupCommand extends Command {
 
     @Override
     public String getName() {
-        return COMMAND_LOG_ANALYSIS;
+        return Utils.getProperty("command.analyse.name");
     }
 
     @Override

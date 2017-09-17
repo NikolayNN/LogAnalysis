@@ -15,11 +15,6 @@ public abstract class Command {
     protected static String pathToOutputFile;
     protected static String pathToInputDirectory;
     protected static int threadCount;
-    protected final String COMMAND_HELP = Utils.getProperty("command.help.name");
-    protected final String COMMAND_SET_OUT_FILE = Utils.getProperty("command.set-out-file.name");
-    protected final String COMMAND_SET_IN_DIR = Utils.getProperty("command.set-in-dir.name");
-    protected final String COMMAND_LOG_ANALYSIS = Utils.getProperty("command.analyse.name");
-    protected final String COMMAND_SET_COUNT_THREAD = Utils.getProperty("command.set-count-thread.name");
     protected final String PARAMETERS_SEPARATOR = " ";
 
     protected View view;

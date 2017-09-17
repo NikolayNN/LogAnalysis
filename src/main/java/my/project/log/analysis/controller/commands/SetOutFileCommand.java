@@ -43,7 +43,7 @@ public class SetOutFileCommand extends Command {
 
     @Override
     public String getName() {
-        return COMMAND_SET_OUT_FILE;
+        return Utils.getProperty("command.set-out-file.name");
     }
 
     @Override

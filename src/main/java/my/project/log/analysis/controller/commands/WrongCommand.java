@@ -23,6 +23,6 @@ public class WrongCommand extends Command {
 
     @Override
     public void execute() {
-        view.write("wrong command");
+        view.write("wrong command. Enter 'help' for help");
     }
 }

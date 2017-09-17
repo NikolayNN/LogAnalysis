@@ -40,7 +40,7 @@ public class SetInDirectoryCommand extends Command {
 
     @Override
     public String getName() {
-        return COMMAND_SET_IN_DIR;
+        return Utils.getProperty("command.set-in-dir.name");
     }
 
     @Override

@@ -1,6 +1,7 @@
 package my.project.log.analysis.controller.commands;
 
 import my.project.log.analysis.controller.CommandFactory;
+import my.project.log.analysis.utils.Utils;
 import my.project.log.analysis.view.View;
 
 /**
@@ -8,15 +9,13 @@ import my.project.log.analysis.view.View;
  */
 public class HelpCommand extends Command {
 
-    private final String NAME = COMMAND_HELP;
-
     public HelpCommand(View view) {
         super(view);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return Utils.getProperty("command.help.name");
     }
 
     @Override

@@ -20,9 +20,7 @@ public class Controller {
         LogFileWriter logFileWriter = new LogFileWriterSimply(Utils.getProperty("default.out.file"));
         LogAnalyser logAnalyser = new LogAnalyser(logMessageParser, logFileWriter);
         CommandFactory commandFactory = new CommandFactory(view, logAnalyser);
-        view.write("Hello!");
-        view.write("Welcome to the best Log Analyzer :)");
-        view.write("Input 'help' for help.");
+        view.write("Hello!\n Welcome to the best Log Analyzer :)\n Input 'help' for help.\n");
         while (true){
             try{
                 view.write("Input your command..");
@@ -31,7 +29,6 @@ public class Controller {
                 command.execute();
             }catch (Exception e){
                 view.write(e.getMessage());
-                e.printStackTrace();
             }
         }
     }
