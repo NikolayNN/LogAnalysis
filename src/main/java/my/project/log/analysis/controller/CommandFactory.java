@@ -1,8 +1,6 @@
 package my.project.log.analysis.controller;
 
-import my.project.log.analysis.controller.commands.Command;
-import my.project.log.analysis.controller.commands.LogGroupCommand;
-import my.project.log.analysis.controller.commands.WrongCommand;
+import my.project.log.analysis.controller.commands.*;
 import my.project.log.analysis.service.LogAnalyser;
 import my.project.log.analysis.view.View;
 
@@ -17,7 +15,10 @@ public class CommandFactory {
     public CommandFactory(View view, LogAnalyser logAnalyser) {
         this.view = view;
         availableCommands = new Command[]{
-            new LogGroupCommand(view, logAnalyser)
+                new LogGroupCommand(view, logAnalyser),
+                new SetOutFileCommand(view, logAnalyser),
+                new SetInDirectoryCommand(view),
+                new HelpCommand(view)
         };
     }
 

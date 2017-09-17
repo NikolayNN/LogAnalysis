@@ -8,16 +8,22 @@ import my.project.log.analysis.view.View;
  * @author Nikolay Horushko
  */
 public abstract class Command {
-    protected final String COMMAND_HELP = Utils.getProperty("command.help");
-    protected final String COMMAND_SET_OUT_DIR = Utils.getProperty("command.set-out-dir");
-    protected final String COMMAND_SET_IN_DIR = Utils.getProperty("command.set-in-dir");
-    protected final String COMMAND_LOG_ANALYSIS = Utils.getProperty("command.analyse");
-    protected String pathOutDir = Utils.getProperty("default.out.dir");
-    protected String pathInDir = Utils.getProperty("default.in.dir");
+
+    protected static String pathToOutputFile;
+    protected static String pathToInputDirectory;
+    protected final String COMMAND_HELP = Utils.getProperty("command.help.name");
+    protected final String COMMAND_SET_OUT_FILE = Utils.getProperty("command.set-out-file.name");
+    protected final String COMMAND_SET_IN_DIR = Utils.getProperty("command.set-in-dir.name");
+    protected final String COMMAND_LOG_ANALYSIS = Utils.getProperty("command.analyse.name");
 
     protected View view;
     protected LogAnalyser logAnalyser;
     protected String command;
+
+    static {
+        pathToOutputFile = Utils.getProperty("default.out.file");
+        pathToInputDirectory = Utils.getProperty("default.in.dir");
+    }
 
 
     public Command(View view){

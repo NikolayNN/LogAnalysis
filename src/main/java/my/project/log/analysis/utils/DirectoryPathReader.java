@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 /**
  * @author Nikolay Horushko
  */
-public class PathReader {
+public class DirectoryPathReader {
 
     public static List<Path> getFilePathesListInDirectory(String path) {
         List<Path> result = new LinkedList<>();
