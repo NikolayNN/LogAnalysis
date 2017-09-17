@@ -1,30 +1,27 @@
 package my.project.log.analysis.controller.commands;
 
-import my.project.log.analysis.controller.CommandFactory;
 import my.project.log.analysis.view.View;
 
 /**
  * @author Nikolay Horushko
  */
-public class HelpCommand extends Command {
-    private final String NAME = COMMAND_HELP;
-
-    public HelpCommand(View view) {
+public class WrongCommand extends Command {
+    public WrongCommand(View view) {
         super(view);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return null;
     }
 
     @Override
     public String getDescription() {
-        return "";
+        return null;
     }
 
     @Override
     public void execute() {
-        view.write(CommandFactory.printAvailableCommands());
+        view.write("wrong command");
     }
 }

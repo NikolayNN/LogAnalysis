@@ -21,7 +21,6 @@ public class PathReaderImpl implements PathReader {
             stream
                     .filter(Files::isRegularFile)
                     .forEach(result::add);
-
         } catch (IOException e){
             throw new RuntimeException(e);
         }

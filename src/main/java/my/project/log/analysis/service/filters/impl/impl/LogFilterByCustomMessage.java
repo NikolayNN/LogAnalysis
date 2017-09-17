@@ -12,20 +12,17 @@ import java.util.regex.Pattern;
  */
 public class LogFilterByCustomMessage implements LogFilter {
 
-    private Set<Pattern> patterns;
+    private Set<String> patterns;
 
-    public LogFilterByCustomMessage(Set<String> stringPatterns) {
-        for (String stringPattern : stringPatterns) {
-            Pattern pattern = Pattern.compile(stringPattern);
-            patterns.add(pattern);
-        }
+    public LogFilterByCustomMessage(Set<String> patterns) {
+        this.patterns = patterns;
     }
 
     @Override
     public void doFilter(LogMessage logMessage) {
         String customMessage = logMessage.getCustomMessage();
-        for (Pattern pattern : patterns) {
-            if(pattern.matcher(customMessage).matches()){
+        for (String pattern : patterns) {
+            if(customMessage.contains(pattern)){
                 return;
             }
         }

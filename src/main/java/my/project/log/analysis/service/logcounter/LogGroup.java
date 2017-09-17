@@ -16,16 +16,16 @@ import java.util.Map;
 @Getter
 public abstract class LogGroup {
 
-    private final Integer FIRST_ELEMENT = 1;
+    private Integer FIRST_ELEMENT = 1;
 
-    protected Map<String, Integer> resultMap;
+    protected Map<String, Integer> resultMap = new HashMap<>();
 
     public abstract void addToStatistic(LogMessage logMessage);
 
     protected void incrementCounter(String groupParameter) {
         if (resultMap.containsKey(groupParameter)) {
             Integer value = resultMap.get(groupParameter);
-            resultMap.put(groupParameter, value++);
+            resultMap.put(groupParameter, ++value);
         } else {
             resultMap.put(groupParameter, FIRST_ELEMENT);
         }
