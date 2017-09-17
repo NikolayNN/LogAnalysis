@@ -57,7 +57,7 @@ public class LogGroupCommand extends Command {
                 startPeriod, finishPeriod));
         logAnalyser.setLogGroup(logGroupFactory.createLogGroup(group));
 
-        logAnalyser.runAnalysis("D://log.txt");
+        logAnalyser.runAnalysis(pathInDir);
     }
 
     private LocalDateTime getDate(String token, LocalDateTime defaultValue) {

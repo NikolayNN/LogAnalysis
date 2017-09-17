@@ -5,8 +5,6 @@ import my.project.log.analysis.service.LogAnalyser;
 import my.project.log.analysis.service.filewriter.FileWriter;
 import my.project.log.analysis.service.filewriter.FileWriterImpl;
 import my.project.log.analysis.service.message.parcer.LogMessageParcer;
-import my.project.log.analysis.service.pathreader.PathReader;
-import my.project.log.analysis.service.pathreader.impl.PathReaderImpl;
 import my.project.log.analysis.view.Console;
 import my.project.log.analysis.view.View;
 
@@ -17,10 +15,9 @@ public class Controller {
 
     public void start(){
         View view = new Console();
-        PathReader pathReader = new PathReaderImpl();
         LogMessageParcer logMessageParcer = new LogMessageParcer();
         FileWriter fileWriter = new FileWriterImpl();
-        LogAnalyser logAnalyser = new LogAnalyser(pathReader, logMessageParcer, fileWriter);
+        LogAnalyser logAnalyser = new LogAnalyser(logMessageParcer, fileWriter);
         CommandFactory commandFactory = new CommandFactory(view, logAnalyser);
         view.write("Hello!");
         while (true){

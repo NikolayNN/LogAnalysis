@@ -12,7 +12,8 @@ public abstract class Command {
     protected final String COMMAND_SET_OUT_DIR = Utils.getProperty("command.set-out-dir");
     protected final String COMMAND_SET_IN_DIR = Utils.getProperty("command.set-in-dir");
     protected final String COMMAND_LOG_ANALYSIS = Utils.getProperty("command.analyse");
-    protected String PATH_OUT_DIR = Utils.getProperty("default.out.dir");
+    protected String pathOutDir = Utils.getProperty("default.out.dir");
+    protected String pathInDir = Utils.getProperty("default.in.dir");
 
     protected View view;
     protected LogAnalyser logAnalyser;

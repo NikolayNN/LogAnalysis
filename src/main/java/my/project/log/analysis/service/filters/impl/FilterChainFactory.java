@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class FilterChainFactory {
 
-    public List<LogFilter> createFilterChain(Set<String> userNames,
+    public FilterChain createFilterChain(Set<String> userNames,
                                   Set<String> customMessagePatterns,
                                   LocalDateTime startDate,
                                   LocalDateTime finishDate){
@@ -30,6 +30,6 @@ public class FilterChainFactory {
         if(customMessagePatterns.size() != 0){
             resultFilterChain.add(new LogFilterByCustomMessage(customMessagePatterns));
         }
-        return resultFilterChain;
+        return new FilterChain(resultFilterChain);
     }
 }
