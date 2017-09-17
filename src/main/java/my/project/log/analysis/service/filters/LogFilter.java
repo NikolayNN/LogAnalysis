@@ -1,4 +1,4 @@
-package my.project.log.analysis.service.filters.impl;
+package my.project.log.analysis.service.filters;
 
 import my.project.log.analysis.model.LogMessage;
 

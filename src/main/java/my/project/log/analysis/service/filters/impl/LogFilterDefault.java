@@ -1,7 +1,7 @@
-package my.project.log.analysis.service.filters.impl.impl;
+package my.project.log.analysis.service.filters.impl;
 
 import my.project.log.analysis.model.LogMessage;
-import my.project.log.analysis.service.filters.impl.LogFilter;
+import my.project.log.analysis.service.filters.LogFilter;
 
 /**
  * @author Nikolay Horushko

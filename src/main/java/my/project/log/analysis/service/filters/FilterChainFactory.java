@@ -1,8 +1,8 @@
-package my.project.log.analysis.service.filters.impl;
+package my.project.log.analysis.service.filters;
 
-import my.project.log.analysis.service.filters.impl.impl.LogFilterByCustomMessage;
-import my.project.log.analysis.service.filters.impl.impl.LogFilterByTime;
-import my.project.log.analysis.service.filters.impl.impl.LogFilterByUserName;
+import my.project.log.analysis.service.filters.impl.LogFilterByCustomMessage;
+import my.project.log.analysis.service.filters.impl.LogFilterByTime;
+import my.project.log.analysis.service.filters.impl.LogFilterByUserName;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

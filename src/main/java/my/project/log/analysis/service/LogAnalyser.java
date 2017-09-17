@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Setter;
 import my.project.log.analysis.exception.LogAnalysisException;
 import my.project.log.analysis.service.filewriter.FileWriter;
-import my.project.log.analysis.service.filters.impl.FilterChain;
+import my.project.log.analysis.service.filters.FilterChain;
 import my.project.log.analysis.service.logcounter.LogGroup;
 import my.project.log.analysis.service.message.parcer.LogMessageParcer;
 import my.project.log.analysis.utils.PathReader;

@@ -3,7 +3,7 @@ package my.project.log.analysis.controller.commands;
 import my.project.log.analysis.exception.WrongCommandFormatException;
 import my.project.log.analysis.model.GroupBy;
 import my.project.log.analysis.service.LogAnalyser;
-import my.project.log.analysis.service.filters.impl.FilterChainFactory;
+import my.project.log.analysis.service.filters.FilterChainFactory;
 import my.project.log.analysis.service.logcounter.LogGroupFactory;
 import my.project.log.analysis.view.View;
 
