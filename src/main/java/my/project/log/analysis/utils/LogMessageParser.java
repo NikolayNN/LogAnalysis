@@ -1,4 +1,4 @@
-package my.project.log.analysis.service.message.parcer;
+package my.project.log.analysis.utils;
 
 import my.project.log.analysis.exception.LogAnalysisException;
 import my.project.log.analysis.model.LogMessage;
@@ -12,9 +12,9 @@ import java.time.format.DateTimeFormatter;
  */
 public class LogMessageParser {
 
-    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(Utils.getProperty("log.date.format"));
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(Utils.getProperty("log.date.format"));
 
-    public LogMessage parce(String sourceMessage) {
+    public static LogMessage parce(String sourceMessage) {
 
         String[] messageTokens = sourceMessage.split("\\|");
         if (messageTokens.length != 3) {
@@ -28,7 +28,7 @@ public class LogMessageParser {
         return new LogMessage(stringToDate(dateInString), userName, customMessage, sourceMessage);
     }
 
-    private LocalDateTime stringToDate(String dateInString) {
+    private static LocalDateTime stringToDate(String dateInString) {
         return LocalDateTime.parse(dateInString, dateFormatter);
     }
 }

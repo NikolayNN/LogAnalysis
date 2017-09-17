@@ -1,6 +1,7 @@
 package my.project.log.analysis.service.message.parcer;
 
 import my.project.log.analysis.model.LogMessage;
+import my.project.log.analysis.utils.LogMessageParser;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

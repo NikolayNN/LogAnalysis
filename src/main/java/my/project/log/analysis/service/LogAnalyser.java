@@ -7,7 +7,7 @@ import my.project.log.analysis.exception.LogAnalysisException;
 import my.project.log.analysis.service.filewriter.LogFileWriter;
 import my.project.log.analysis.service.filters.FilterChain;
 import my.project.log.analysis.service.logcounter.LogGroup;
-import my.project.log.analysis.service.message.parcer.LogMessageParser;
+import my.project.log.analysis.utils.LogMessageParser;
 import my.project.log.analysis.utils.DirectoryPathReader;
 
 import java.io.IOException;
@@ -27,13 +27,11 @@ import java.util.stream.Stream;
 @Setter
 public class LogAnalyser {
 
-    private LogMessageParser logParcer;
     private FilterChain filterChain;
     private LogGroup logGroup;
     private LogFileWriter logFileWriter;
 
-    public LogAnalyser(LogMessageParser logParcer, LogFileWriter logFileWriter) {
-        this.logParcer = logParcer;
+    public LogAnalyser(LogFileWriter logFileWriter) {
         this.logFileWriter = logFileWriter;
     }
 
@@ -61,7 +59,7 @@ public class LogAnalyser {
         public void run() {
             try (Stream<String> stream = Files.lines(Paths.get(path.toUri()))) {
                 stream
-                        .map(line -> logParcer.parce(line))
+                        .map(line -> LogMessageParser.parce(line))
                         .filter(line -> filterChain.isFiltered(line))
                         .forEach(logGroup::addToStatistic);
             } catch (IOException e) {
