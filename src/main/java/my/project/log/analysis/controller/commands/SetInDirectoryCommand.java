@@ -11,9 +11,8 @@ import java.util.regex.Pattern;
  * @author Nikolay Horushko
  */
 public class SetInDirectoryCommand extends Command {
-
+    final int COUNT_PARAMETERS = 2;
     private final Pattern pathToFilePattern = Pattern.compile("(\\w{1}:\\/([A-z]|[0-9]|\\s|\\/)+)");
-    private final String DESCRIPTION = Utils.getProperty("command.set-in-dir.description");
 
     public SetInDirectoryCommand(View view) {
         super(view);
@@ -26,16 +25,11 @@ public class SetInDirectoryCommand extends Command {
     }
 
     private String getPathToFile() {
-        final int EXPECTED_NUMBER_PARAMETERS = 2;
-        final int POSITION_SECOND_PARAMETER = 1;
-        final String PARAMETERS_SEPARATOR = " ";
 
-        String[] splittedCommand = command.split(PARAMETERS_SEPARATOR);
-        if (splittedCommand.length != EXPECTED_NUMBER_PARAMETERS) {
-            throw new WrongCommandFormatException(String.format("ERROR. Command contains %s parameters, " +
-                    "but expect 2", splittedCommand.length));
-        }
-        String pathToFile = splittedCommand[POSITION_SECOND_PARAMETER];
+        final int POSITION_SECOND_PARAMETER = 1;
+
+        checkNumberParameters(COUNT_PARAMETERS);
+        String pathToFile = getParameterByPosition(POSITION_SECOND_PARAMETER);
         Matcher matcher = pathToFilePattern.matcher(pathToFile);
         if (matcher.matches()) {
             return pathToFile;
@@ -51,6 +45,6 @@ public class SetInDirectoryCommand extends Command {
 
     @Override
     public String getDescription() {
-        return DESCRIPTION;
+        return Utils.getProperty("command.set-in-dir.description");
     }
 }

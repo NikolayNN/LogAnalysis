@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  */
 public class SetOutFileCommand extends Command {
 
-    private final String COMMAND_DESCRIPTION = Utils.getProperty("command.set-out-file.description");
+    final int COUNT_PARAMETERS = 2;
     private final Pattern pathToFilePattern = Pattern.compile("(\\w{1}:\\/([A-z]|[0-9]|\\s|\\/)+\\.\\w+)");
 
     public SetOutFileCommand(View view, LogAnalyser logAnalyser) {
@@ -28,16 +28,11 @@ public class SetOutFileCommand extends Command {
     }
 
     private String getPathToFile() {
-        final int EXPECTED_NUMBER_PARAMETERS = 2;
-        final int POSITION_SECOND_PARAMETER = 1;
-        final String PARAMETER_SEPARATOR = " ";
 
-        String[] splittedCommand = command.split(PARAMETER_SEPARATOR);
-        if (splittedCommand.length != EXPECTED_NUMBER_PARAMETERS) {
-            throw new WrongCommandFormatException(String.format("ERROR. Command contains %s parameters, " +
-                    " but expect 2", splittedCommand.length));
-        }
-        String pathToFile = splittedCommand[POSITION_SECOND_PARAMETER];
+        final int PARAMETER_POSITION = 1;
+
+        checkNumberParameters(COUNT_PARAMETERS);
+        String pathToFile = getParameterByPosition(PARAMETER_POSITION);
         Matcher matcher = pathToFilePattern.matcher(pathToFile);
         if (matcher.matches()) {
             return pathToFile;
@@ -53,6 +48,6 @@ public class SetOutFileCommand extends Command {
 
     @Override
     public String getDescription() {
-        return COMMAND_DESCRIPTION;
+        return Utils.getProperty("command.set-out-file.description");
     }
 }

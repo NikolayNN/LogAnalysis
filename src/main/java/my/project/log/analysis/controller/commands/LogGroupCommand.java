@@ -53,7 +53,7 @@ public class LogGroupCommand extends Command {
                 startPeriod, finishPeriod));
         logAnalyser.setLogGroup(new LogGroupFactory().createLogGroup(group));
 
-        logAnalyser.runAnalysis(pathToInputDirectory);
+        logAnalyser.runAnalysis(pathToInputDirectory, threadCount);
         view.write("Ok. Result saved in the file " + pathToOutputFile);
     }
 

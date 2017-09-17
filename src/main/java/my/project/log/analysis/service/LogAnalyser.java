@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.TreeMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Stream;
 
 /**
@@ -34,10 +37,29 @@ public class LogAnalyser {
         this.logFileWriter = logFileWriter;
     }
 
-    public void runAnalysis(String pathToDirectoryWithLogs) {
-
+    public void runAnalysis(String pathToDirectoryWithLogs, int threadCount) {
+        ExecutorService executor = Executors.newFixedThreadPool(threadCount);
         for (Path logFile : DirectoryPathReader.getFilePathesListInDirectory(pathToDirectoryWithLogs)) {
-            try (Stream<String> stream = Files.lines(Paths.get(logFile.toUri()))) {
+            executor.execute(new Reader(logFile));
+        }
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
+
+        logFileWriter.writeToFile(new TreeMap<>(logGroup.getResultMap()));
+    }
+
+    private final class Reader implements Runnable {
+
+        private final Path path;
+
+        public Reader(Path path){
+            this.path = path;
+        }
+
+        @Override
+        public void run() {
+            try (Stream<String> stream = Files.lines(Paths.get(path.toUri()))) {
                 stream
                         .map(line -> logParcer.parce(line))
                         .filter(line -> filterChain.isFiltered(line))
@@ -46,7 +68,7 @@ public class LogAnalyser {
                 throw new LogAnalysisException(e);
             }
         }
-        logFileWriter.writeToFile(logGroup.getResultMap());
     }
+
 
 }

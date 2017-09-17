@@ -7,6 +7,7 @@ import my.project.log.analysis.model.LogMessage;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Nikolay Horushko
@@ -18,7 +19,7 @@ public abstract class LogGroup {
 
     private Integer FIRST_ELEMENT = 1;
 
-    protected Map<String, Integer> resultMap = new HashMap<>();
+    protected Map<String, Integer> resultMap = new ConcurrentHashMap<>();
 
     public abstract void addToStatistic(LogMessage logMessage);
 

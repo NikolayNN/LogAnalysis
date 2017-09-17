@@ -18,13 +18,14 @@ public class CommandFactory {
                 new LogGroupCommand(view, logAnalyser),
                 new SetOutFileCommand(view, logAnalyser),
                 new SetInDirectoryCommand(view),
+                new SetCountThreadCommand(view),
                 new HelpCommand(view)
         };
     }
 
     public Command createCommand(String source) {
         final int COMMAND_NAME_POSITION = 0;
-        
+
         String commandName = source.split(" ")[COMMAND_NAME_POSITION];
         for (Command command : availableCommands) {
             if (command.getName().equalsIgnoreCase(commandName)) {

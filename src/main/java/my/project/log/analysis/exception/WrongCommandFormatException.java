@@ -8,4 +8,8 @@ public class WrongCommandFormatException extends RuntimeException {
     public WrongCommandFormatException(String message) {
         super(message);
     }
+
+    public WrongCommandFormatException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
