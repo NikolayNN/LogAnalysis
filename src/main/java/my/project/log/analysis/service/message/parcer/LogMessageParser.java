@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * @author Nikolay Horushko
  */
-public class LogMessageParcer {
+public class LogMessageParser {
 
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(Utils.getProperty("log.date.format"));
 

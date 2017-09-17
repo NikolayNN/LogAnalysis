@@ -7,7 +7,7 @@ import my.project.log.analysis.exception.LogAnalysisException;
 import my.project.log.analysis.service.filewriter.LogFileWriter;
 import my.project.log.analysis.service.filters.FilterChain;
 import my.project.log.analysis.service.logcounter.LogGroup;
-import my.project.log.analysis.service.message.parcer.LogMessageParcer;
+import my.project.log.analysis.service.message.parcer.LogMessageParser;
 import my.project.log.analysis.utils.DirectoryPathReader;
 
 import java.io.IOException;
@@ -24,12 +24,12 @@ import java.util.stream.Stream;
 @Setter
 public class LogAnalyser {
 
-    private LogMessageParcer logParcer;
+    private LogMessageParser logParcer;
     private FilterChain filterChain;
     private LogGroup logGroup;
     private LogFileWriter logFileWriter;
 
-    public LogAnalyser(LogMessageParcer logParcer, LogFileWriter logFileWriter) {
+    public LogAnalyser(LogMessageParser logParcer, LogFileWriter logFileWriter) {
         this.logParcer = logParcer;
         this.logFileWriter = logFileWriter;
     }

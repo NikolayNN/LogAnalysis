@@ -9,13 +9,13 @@ import static org.junit.Assert.*;
 /**
  * @author Nikolay Horushko
  */
-public class LogMessageParcerTest {
+public class LogMessageParserTest {
 
-    LogMessageParcer logMessageParcer;
+    LogMessageParser logMessageParser;
 
     @Before
     public void setup(){
-        logMessageParcer = new LogMessageParcer();
+        logMessageParser = new LogMessageParser();
     }
 
     @Test
@@ -23,7 +23,7 @@ public class LogMessageParcerTest {
         //given
         String logMessage = "2017-09-16 12:11:06 | UserName1 | CustomMessage";
         //when
-        LogMessage result = logMessageParcer.parce(logMessage);
+        LogMessage result = logMessageParser.parce(logMessage);
         //then
         assertEquals("2017-09-16T12:11:06", result.getDate().toString());
         assertEquals("UserName1", result.getUserName());
