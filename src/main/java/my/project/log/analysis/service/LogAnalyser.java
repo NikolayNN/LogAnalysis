@@ -33,11 +33,10 @@ public class LogAnalyser {
         this.fileWriter = fileWriter;
     }
 
-    public void runAnalysis(String path) {
-        List<Path> paths = PathReader.getFilePathesListInDirectory(path);
+    public void runAnalysis(String pathToDirectoryWithLogs) {
 
-        for (Path filePath : paths) {
-            try (Stream<String> stream = Files.lines(Paths.get(filePath.toUri()))) {
+        for (Path logFile : PathReader.getFilePathesListInDirectory(pathToDirectoryWithLogs)) {
+            try (Stream<String> stream = Files.lines(Paths.get(logFile.toUri()))) {
                 stream
                         .map(line -> logParcer.parce(line))
                         .filter(line -> filterChain.isFiltered(line))
