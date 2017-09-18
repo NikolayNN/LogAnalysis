@@ -14,9 +14,10 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @author Nikolay Horushko
  */
 public class ConcurrentLogFileWriter implements LogFileWriter {
-    String pathToFile;
-    ConcurrentLinkedQueue<String> logMessagesQueue;
-    BufferedWriter bufferedWriter;
+    private String pathToFile;
+    private ConcurrentLinkedQueue<String> logMessagesQueue;
+    private BufferedWriter bufferedWriter;
+    private FileWriterThread backgroundWriter;
 
     public ConcurrentLogFileWriter(String pathToFile) {
         this.pathToFile = pathToFile;
@@ -37,15 +38,25 @@ public class ConcurrentLogFileWriter implements LogFileWriter {
     private void runBackgroundWritingToFile() {
         createFile();
         try {
-            bufferedWriter = new BufferedWriter((new FileWriter(pathToFile)));
+            bufferedWriter = new BufferedWriter(new FileWriter(pathToFile));
         } catch (IOException e) {
             throw new LogAnalysisException(e);
         }
-        new Thread(new FileWriterThread(bufferedWriter, logMessagesQueue)).start();
+        backgroundWriter = new FileWriterThread(bufferedWriter, logMessagesQueue);
+        new Thread(backgroundWriter, "backgroundWriter").start();
     }
 
     public void clearResultFile() {
-
+        try {
+            backgroundWriter.disable();
+            Thread.sleep(200);
+            bufferedWriter.close();
+            runBackgroundWritingToFile();
+        } catch (InterruptedException e) {
+            throw new LogAnalysisException(e);
+        } catch (IOException e) {
+            throw new LogAnalysisException(e);
+        }
     }
 
     private void createFile() {

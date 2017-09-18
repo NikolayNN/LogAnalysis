@@ -36,6 +36,7 @@ public class LogAnalyser {
     }
 
     public void runAnalysis(String pathToDirectoryWithLogs, int threadCount) {
+        logFileWriter.clearResultFile();
         ExecutorService executor = Executors.newFixedThreadPool(threadCount);
         for (Path logFile : DirectoryPathReader.getFilePathesInDirectory(pathToDirectoryWithLogs)) {
             executor.execute(new Reader(logFile));
@@ -56,7 +57,6 @@ public class LogAnalyser {
 
         @Override
         public void run() {
-            logFileWriter.clearResultFile();
             try (Stream<String> stream = Files.lines(Paths.get(path.toUri()))) {
                 stream
                         .map(line -> LogMessageParser.parce(line))

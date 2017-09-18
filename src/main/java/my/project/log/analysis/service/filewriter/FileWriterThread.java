@@ -10,32 +10,41 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 /**
  * @author Nikolay Horushko
  */
-@AllArgsConstructor
-public class FileWriterThread implements Runnable{
+public class FileWriterThread implements Runnable {
 
     private BufferedWriter bufferedWriter;
     private ConcurrentLinkedQueue<String> logMessagesQueue;
+    private boolean isActive;
 
+    public FileWriterThread(BufferedWriter bufferedWriter, ConcurrentLinkedQueue<String> logMessagesQueue) {
+        this.bufferedWriter = bufferedWriter;
+        this.logMessagesQueue = logMessagesQueue;
+        this.isActive = true;
+    }
+
+    public void disable(){
+        isActive = false;
+    }
 
     @Override
     public void run() {
-        synchronized (logMessagesQueue){
-            while (true){
-                if(!logMessagesQueue.isEmpty()){
-                    try{
-                        bufferedWriter.write(logMessagesQueue.poll() + System.lineSeparator());
-                        bufferedWriter.flush();
-                    } catch (IOException ex){
-                        throw new LogAnalysisException(ex);
-                    }
-                }else{
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+        while (isActive) {
+            if (!logMessagesQueue.isEmpty()) {
+                try {
+                    bufferedWriter.write(logMessagesQueue.poll() + System.lineSeparator());
+                    bufferedWriter.flush();
+                } catch (IOException ex) {
+                    throw new LogAnalysisException(ex);
+                }
+            } else {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
+
         }
     }
+
 }
