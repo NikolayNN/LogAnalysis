@@ -22,7 +22,7 @@ public abstract class LogBuncher {
 
     public abstract void addToGroup(LogMessage logMessage);
 
-    protected void incrementCounter(String groupParameter) {
+    protected synchronized void incrementCounter(String groupParameter) {
         if (resultMap.containsKey(groupParameter)) {
             Integer value = resultMap.get(groupParameter);
             resultMap.put(groupParameter, ++value);
