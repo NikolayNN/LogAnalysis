@@ -14,6 +14,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @author Nikolay Horushko
  */
 public class ConcurrentLogFileWriter implements LogFileWriter {
+
     private String pathToFile;
     private ConcurrentLinkedQueue<String> logMessagesQueue;
     private BufferedWriter bufferedWriter;

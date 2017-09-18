@@ -1,6 +1,5 @@
 package my.project.log.analysis.service.filewriter;
 
-import lombok.AllArgsConstructor;
 import my.project.log.analysis.exception.LogAnalysisException;
 
 import java.io.BufferedWriter;
@@ -22,29 +21,29 @@ public class FileWriterThread implements Runnable {
         this.isActive = true;
     }
 
-    public void disable(){
+    public void disable() {
         isActive = false;
     }
 
     @Override
     public void run() {
-        while (isActive) {
-            if (!logMessagesQueue.isEmpty()) {
-                try {
-                    bufferedWriter.write(logMessagesQueue.poll() + System.lineSeparator());
-                    bufferedWriter.flush();
-                } catch (IOException ex) {
-                    throw new LogAnalysisException(ex);
-                }
-            } else {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+        synchronized (logMessagesQueue) {
+            while (isActive) {
+                if (!logMessagesQueue.isEmpty()) {
+                    try {
+                        bufferedWriter.write(logMessagesQueue.poll() + System.lineSeparator());
+                        bufferedWriter.flush();
+                    } catch (IOException ex) {
+                        throw new LogAnalysisException(ex);
+                    }
+                } else {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-
         }
     }
-
 }
