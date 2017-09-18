@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class FilterChainExecutor {
 
-    List<LogFilter> logFilterChain;
+    private List<LogFilter> logFilterChain;
 
     public FilterChainExecutor(List<LogFilter> filterChain) {
         this.logFilterChain = filterChain;

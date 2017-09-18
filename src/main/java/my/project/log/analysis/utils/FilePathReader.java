@@ -12,11 +12,11 @@ import java.util.stream.Stream;
 /**
  * @author Nikolay Horushko
  */
-public class DirectoryPathReader {
+public class FilePathReader {
 
-    public static List<Path> getFilePathesInDirectory(String path) {
+    public static List<Path> getFilePathesInDirectory(String pathToDirectoryForScan) {
         List<Path> result = new LinkedList<>();
-        try(Stream<Path> stream = Files.walk(Paths.get(path))) {
+        try(Stream<Path> stream = Files.walk(Paths.get(pathToDirectoryForScan))) {
             stream
                     .filter(Files::isRegularFile)
                     .forEach(result::add);

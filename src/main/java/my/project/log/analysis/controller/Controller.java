@@ -18,6 +18,7 @@ public class Controller {
         LogFileWriter logFileWriter = new ConcurrentLogFileWriter(Utils.getProperty("default.out.file"));
         LogAnalyser logAnalyser = new LogAnalyser(logFileWriter);
         CommandFactory commandFactory = new CommandFactory(view, logAnalyser);
+
         view.write("Hello!\n Welcome to the best Log Analyzer :)\n Input 'help' for help.\n");
         while (true){
             try{

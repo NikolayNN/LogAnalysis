@@ -8,7 +8,7 @@ import my.project.log.analysis.service.filewriter.LogFileWriter;
 import my.project.log.analysis.service.filters.FilterChainExecutor;
 import my.project.log.analysis.service.logbuncher.LogBuncher;
 import my.project.log.analysis.utils.LogMessageParser;
-import my.project.log.analysis.utils.DirectoryPathReader;
+import my.project.log.analysis.utils.FilePathReader;
 import my.project.log.analysis.utils.Utils;
 
 import java.io.IOException;
@@ -38,7 +38,7 @@ public class LogAnalyser {
     public void runAnalysis(String pathToDirectoryWithLogs, int threadCount) {
         logFileWriter.clearResultFile();
         ExecutorService executor = Executors.newFixedThreadPool(threadCount);
-        for (Path logFile : DirectoryPathReader.getFilePathesInDirectory(pathToDirectoryWithLogs)) {
+        for (Path logFile : FilePathReader.getFilePathesInDirectory(pathToDirectoryWithLogs)) {
             executor.execute(new Reader(logFile));
         }
         executor.shutdown();
@@ -71,8 +71,5 @@ public class LogAnalyser {
             logBuncher.addToGroup(logMessage);
             logFileWriter.writeToFile(logMessage.getSourceLogMessage());
         }
-
     }
-
-
 }
