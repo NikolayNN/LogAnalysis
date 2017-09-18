@@ -1,14 +1,15 @@
 package my.project.log.analysis.service;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import my.project.log.analysis.exception.LogAnalysisException;
+import my.project.log.analysis.model.LogMessage;
 import my.project.log.analysis.service.filewriter.LogFileWriter;
 import my.project.log.analysis.service.filters.FilterChainExecutor;
-import my.project.log.analysis.service.loggroup.LogBuncher;
+import my.project.log.analysis.service.logbuncher.LogBuncher;
 import my.project.log.analysis.utils.LogMessageParser;
 import my.project.log.analysis.utils.DirectoryPathReader;
+import my.project.log.analysis.utils.Utils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,7 +23,6 @@ import java.util.stream.Stream;
 /**
  * @author Nikolay Horushko
  */
-@AllArgsConstructor
 @Getter
 @Setter
 public class LogAnalyser {
@@ -43,8 +43,7 @@ public class LogAnalyser {
         executor.shutdown();
         while (!executor.isTerminated()) {
         }
-
-        logFileWriter.writeToFile(new TreeMap<>(logBuncher.getResultMap()));
+        Utils.printMap(new TreeMap<>(logBuncher.getResultMap()));
     }
 
     private final class Reader implements Runnable {
@@ -57,15 +56,22 @@ public class LogAnalyser {
 
         @Override
         public void run() {
+            logFileWriter.clearResultFile();
             try (Stream<String> stream = Files.lines(Paths.get(path.toUri()))) {
                 stream
                         .map(line -> LogMessageParser.parce(line))
                         .filter(line -> logFilterChainExecutor.isFiltered(line))
-                        .forEach(logBuncher::addToStatistic);
+                        .forEach(line -> doStatistic(line));
             } catch (IOException e) {
                 throw new LogAnalysisException(e);
             }
         }
+
+        private void doStatistic(LogMessage logMessage){
+            logBuncher.addToGroup(logMessage);
+            logFileWriter.writeToFile(logMessage.getSourceLogMessage());
+        }
+
     }
 
 

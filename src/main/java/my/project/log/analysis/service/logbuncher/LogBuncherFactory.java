@@ -1,8 +1,8 @@
-package my.project.log.analysis.service.loggroup;
+package my.project.log.analysis.service.logbuncher;
 
 import my.project.log.analysis.exception.LogAnalysisException;
 import my.project.log.analysis.model.GroupBy;
-import my.project.log.analysis.service.loggroup.impl.*;
+import my.project.log.analysis.service.logbuncher.impl.*;
 
 /**
  * @author Nikolay Horushko

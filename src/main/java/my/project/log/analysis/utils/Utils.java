@@ -3,6 +3,7 @@ package my.project.log.analysis.utils;
 import my.project.log.analysis.Main;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -21,5 +22,12 @@ public class Utils {
             throw new RuntimeException(e);
         }
         return properties.getProperty(propertyName);
+    }
+
+    public static void printMap(Map<String, Integer> data){
+        for (Map.Entry<String, Integer> entry : data.entrySet()) {
+            System.out.println((String.format("%s - %s %s", entry.getKey(), entry.getValue(),
+                    System.getProperty("line.separator"))));
+        }
     }
 }

@@ -1,12 +1,12 @@
-package my.project.log.analysis.service.loggroup;
+package my.project.log.analysis.service.logbuncher;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import my.project.log.analysis.model.LogMessage;
 
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * @author Nikolay Horushko
@@ -18,9 +18,9 @@ public abstract class LogBuncher {
 
     private Integer FIRST_ELEMENT = 1;
 
-    protected Map<String, Integer> resultMap = new ConcurrentHashMap<>();
+    protected ConcurrentMap<String, Integer> resultMap = new ConcurrentHashMap<>();
 
-    public abstract void addToStatistic(LogMessage logMessage);
+    public abstract void addToGroup(LogMessage logMessage);
 
     protected void incrementCounter(String groupParameter) {
         if (resultMap.containsKey(groupParameter)) {

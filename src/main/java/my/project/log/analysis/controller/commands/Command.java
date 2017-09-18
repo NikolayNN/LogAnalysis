@@ -5,8 +5,6 @@ import my.project.log.analysis.service.LogAnalyser;
 import my.project.log.analysis.utils.Utils;
 import my.project.log.analysis.view.View;
 
-import java.util.regex.Matcher;
-
 /**
  * @author Nikolay Horushko
  */

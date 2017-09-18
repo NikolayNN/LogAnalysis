@@ -24,7 +24,7 @@ public class SetOutFileCommand extends Command {
     public void execute() {
         pathToOutputFile = getPathToFile();
         logAnalyser.getLogFileWriter().setPathToOutputFile(pathToOutputFile);
-        view.write(String.format("set new path for input file %s", pathToOutputFile));
+        view.write(String.format("set new path for output file %s", pathToOutputFile));
     }
 
     private String getPathToFile() {
