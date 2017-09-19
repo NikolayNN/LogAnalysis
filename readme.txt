@@ -3,7 +3,7 @@ The app scan specify directory, filter and group log messages.
 Log message format:
 2017-09-01 01:11:06 | UserName | Custom Log Message
 
-There are the next command available:
+There are the next commands available:
 
 help 
 for help
