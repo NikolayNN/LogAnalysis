@@ -6,7 +6,8 @@ import my.project.log.analysis.exception.LogAnalysisException;
 import my.project.log.analysis.model.LogMessage;
 import my.project.log.analysis.service.filewriter.LogFileWriter;
 import my.project.log.analysis.service.filters.FilterChainExecutor;
-import my.project.log.analysis.service.logbuncher.LogBuncher;
+import my.project.log.analysis.service.loggroup.LogGroup;
+import my.project.log.analysis.service.loggroup.LogGroupCollector;
 import my.project.log.analysis.utils.LogMessageParser;
 import my.project.log.analysis.utils.FilePathReader;
 import my.project.log.analysis.utils.Utils;
@@ -28,15 +29,18 @@ import java.util.stream.Stream;
 public class LogAnalyser {
 
     private FilterChainExecutor logFilterChainExecutor;
-    private LogBuncher logBuncher;
+    private LogGroup logGroup;
     private LogFileWriter logFileWriter;
+    private LogGroupCollector logGroupCollector;
 
     public LogAnalyser(LogFileWriter logFileWriter) {
         this.logFileWriter = logFileWriter;
+        logGroupCollector = new LogGroupCollector();
     }
 
     public void runAnalysis(String pathToDirectoryWithLogs, int threadCount) {
         logFileWriter.clearResultFile();
+        logGroupCollector.clearResultMap();
         ExecutorService executor = Executors.newFixedThreadPool(threadCount);
         for (Path logFile : FilePathReader.getFilePathesInDirectory(pathToDirectoryWithLogs)) {
             executor.execute(new Reader(logFile));
@@ -44,7 +48,7 @@ public class LogAnalyser {
         executor.shutdown();
         while (!executor.isTerminated()) {
         }
-        Utils.printMap(new TreeMap<>(logBuncher.getResultMap()));
+        Utils.printMap(new TreeMap<>(logGroupCollector.getResultMap()));
     }
 
     private final class Reader implements Runnable {
@@ -68,7 +72,7 @@ public class LogAnalyser {
         }
 
         private void doStatistic(LogMessage logMessage){
-            logBuncher.addToGroup(logMessage);
+            logGroupCollector.addToGroup(logGroup.getLogGroupParameter(logMessage));
             logFileWriter.writeToFile(logMessage.getSourceLogMessage());
         }
     }

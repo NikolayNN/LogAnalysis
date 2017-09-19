@@ -13,7 +13,7 @@ public abstract class Command {
     protected static String pathToOutputFile;
     protected static String pathToInputDirectory;
     protected static int threadCount;
-    protected final String PARAMETERS_SEPARATOR = " ";
+    protected final String PARAMETERS_SEPARATOR = "\\s{1,}";
 
     protected View view;
     protected LogAnalyser logAnalyser;

@@ -4,7 +4,7 @@ import my.project.log.analysis.exception.WrongCommandFormatException;
 import my.project.log.analysis.model.GroupBy;
 import my.project.log.analysis.service.LogAnalyser;
 import my.project.log.analysis.service.filters.FilterChainExecutorFactory;
-import my.project.log.analysis.service.logbuncher.LogBuncherFactory;
+import my.project.log.analysis.service.loggroup.LogGroupFactory;
 import my.project.log.analysis.utils.Utils;
 import my.project.log.analysis.view.View;
 
@@ -44,17 +44,33 @@ public class LogGroupCommand extends Command {
             throw new WrongCommandFormatException("you should specify at least one filter parameter.");
         }
 
-        GroupBy group = GroupBy.getEnum(searchParameterByToken(GROUP_BY_TOKEN).toLowerCase());
-        if (group == null) {
-            throw new WrongCommandFormatException("you should specify group parameter");
+        Set<GroupBy> groups = convertStringsToEnumGroupBy(searchParametersByToken(GROUP_BY_TOKEN));
+        if (groups.size() == 0) {
+            throw new WrongCommandFormatException("You should specify group parameter");
+        }else{
+            if(groups.size() > 2){
+                throw new WrongCommandFormatException("You can't use more than 2 group parameters");
+            }
         }
 
         logAnalyser.setLogFilterChainExecutor(new FilterChainExecutorFactory().createFilterChain(userNames, customMessagePattern,
                 startPeriod, finishPeriod));
-        logAnalyser.setLogBuncher(new LogBuncherFactory().createLogGroup(group));
+        logAnalyser.setLogGroup(new LogGroupFactory().createLogGroup(groups));
 
         logAnalyser.runAnalysis(pathToInputDirectory, threadCount);
         view.write("Ok. Result saved in the file " + pathToOutputFile);
+    }
+
+    private Set<GroupBy> convertStringsToEnumGroupBy(Set<String> strings){
+        Set<GroupBy> result = new HashSet<>();
+        for (String str : strings) {
+            GroupBy group = GroupBy.getEnum(str.toLowerCase());
+            if (group == null) {
+                throw new WrongCommandFormatException(String.format("wrong group specify parameter '%s'", str));
+            }
+            result.add(group);
+        }
+        return result;
     }
 
     private LocalDateTime searchDate(String token, LocalDateTime defaultValue) {

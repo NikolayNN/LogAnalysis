@@ -25,6 +25,10 @@ public class Utils {
     }
 
     public static void printMap(Map<String, Integer> data){
+        if(data.size() == 0){
+            System.out.println("We can't find log messages with your filter");
+        }
+
         for (Map.Entry<String, Integer> entry : data.entrySet()) {
             System.out.println((String.format("%s - %s %s", entry.getKey(), entry.getValue(),
                     System.getProperty("line.separator"))));
