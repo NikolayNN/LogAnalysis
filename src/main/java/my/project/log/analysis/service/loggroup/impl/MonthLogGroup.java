@@ -2,7 +2,6 @@ package my.project.log.analysis.service.loggroup.impl;
 
 import my.project.log.analysis.model.LogMessage;
 import my.project.log.analysis.service.loggroup.LogGroup;
-import my.project.log.analysis.service.loggroup.LogGroupDecorator;
 
 import java.time.format.DateTimeFormatter;
 
@@ -18,6 +17,7 @@ public class MonthLogGroup extends LogGroupDecorator {
 
     @Override
     public String getLogGroupParameter(LogMessage logMessage) {
-        return super.getLogGroupParameter(logMessage) + KEY_SEPARATOR + logMessage.getDate().format(FORMATTER);
+        return String.format("%s%s%s", super.getLogGroupParameter(logMessage), KEY_SEPARATOR,
+                logMessage.getDate().format(FORMATTER));
     }
 }
