@@ -46,9 +46,9 @@ public class LogGroupCommand extends Command {
 
         Set<GroupBy> groups = convertStringsToEnumGroupBy(searchParametersByToken(GROUP_BY_TOKEN));
         if (groups.size() == 0) {
-            throw new WrongCommandFormatException("You should specify group parameter");
-        }else{
-            if(groups.size() > 2){
+            throw new WrongCommandFormatException("You should specify at least one group parameter");
+        } else {
+            if (groups.size() > 2) {
                 throw new WrongCommandFormatException("You can't use more than 2 group parameters");
             }
         }
@@ -61,7 +61,7 @@ public class LogGroupCommand extends Command {
         view.write("Ok. Result saved in the file " + pathToOutputFile);
     }
 
-    private Set<GroupBy> convertStringsToEnumGroupBy(Set<String> strings){
+    private Set<GroupBy> convertStringsToEnumGroupBy(Set<String> strings) {
         Set<GroupBy> result = new HashSet<>();
         for (String str : strings) {
             GroupBy group = GroupBy.getEnum(str.toLowerCase());
@@ -92,6 +92,7 @@ public class LogGroupCommand extends Command {
         Set<String> result = new HashSet<>();
         for (String commandParameter : commandParameters) {
             if (commandParameter.contains(token)) {
+                checkParamsCount(commandParameter);
                 result.add(commandParameter.split(PARAMETERS_SEPARATOR)[PARAMETER_POSITION]);
             }
         }
@@ -102,10 +103,19 @@ public class LogGroupCommand extends Command {
         final int PARAMETER_POSITION = 1;
         for (String commandParameter : commandParameters) {
             if (commandParameter.contains(token)) {
+                checkParamsCount(commandParameter);
                 return commandParameter.split(PARAMETERS_SEPARATOR)[PARAMETER_POSITION];
             }
         }
         return "";
+    }
+
+    private void checkParamsCount(String commandParameter) {
+        final int EXPECTED_COUNT_PARAMETER = 2;
+        String[] params = commandParameter.split(PARAMETERS_SEPARATOR);
+        if (params.length > EXPECTED_COUNT_PARAMETER){
+            throw new WrongCommandFormatException(String.format("You can't use more then one parameter for token %s", params[0]));
+        }
     }
 
     @Override
