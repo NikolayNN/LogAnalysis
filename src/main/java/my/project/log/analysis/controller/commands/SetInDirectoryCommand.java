@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  * @author Nikolay Horushko
  */
 public class SetInDirectoryCommand extends Command {
-    final int COUNT_PARAMETERS = 2;
+    final int EXPECTED_PARAMETER_COUNT = 2;
     private final Pattern pathToFilePattern = Pattern.compile("(\\w{1}:\\/([A-z]|[0-9]|\\s|\\/)+)");
 
     public SetInDirectoryCommand(View view) {
@@ -26,10 +26,10 @@ public class SetInDirectoryCommand extends Command {
 
     private String getPathToFile() {
 
-        final int POSITION_SECOND_PARAMETER = 1;
+        final int VALUE_POSITION_IN_COMMAND = 1;
 
-        checkNumberParameters(COUNT_PARAMETERS);
-        String pathToFile = getParameterByPosition(POSITION_SECOND_PARAMETER);
+        checkNumberParameters(EXPECTED_PARAMETER_COUNT);
+        String pathToFile = getParameterByPosition(VALUE_POSITION_IN_COMMAND);
         Matcher matcher = pathToFilePattern.matcher(pathToFile);
         if (matcher.matches()) {
             return pathToFile;

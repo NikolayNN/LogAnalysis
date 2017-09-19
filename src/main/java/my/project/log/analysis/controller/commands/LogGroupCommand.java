@@ -34,8 +34,8 @@ public class LogGroupCommand extends Command {
     @Override
     public void execute() {
         commandParameters = command.split("(?=-[usfpg])");
-        Set<String> userNames = searchParametersByToken(USERNAME_FILTER_TOKEN);
-        Set<String> customMessagePattern = searchParametersByToken(CUSTOM_MESSAGE_PATTERN_TOKEN);
+        Set<String> userNames = searchTokenValueByToken(USERNAME_FILTER_TOKEN);
+        Set<String> customMessagePattern = searchTokenValueByToken(CUSTOM_MESSAGE_PATTERN_TOKEN);
         LocalDateTime startPeriod = searchDate(START_PERIOD_FILTER_TOKEN, LocalDateTime.MIN);
         LocalDateTime finishPeriod = searchDate(FINISH_PERIOD_FILTER_TOKEN, LocalDateTime.MAX);
 
@@ -44,7 +44,7 @@ public class LogGroupCommand extends Command {
             throw new WrongCommandFormatException("you should specify at least one filter parameter.");
         }
 
-        Set<GroupBy> groups = convertStringsToEnumGroupBy(searchParametersByToken(GROUP_BY_TOKEN));
+        Set<GroupBy> groups = convertStringsToEnumGroupBy(searchTokenValueByToken(GROUP_BY_TOKEN));
         if (groups.size() == 0) {
             throw new WrongCommandFormatException("You should specify at least one group parameter");
         } else {
@@ -74,7 +74,7 @@ public class LogGroupCommand extends Command {
     }
 
     private LocalDateTime searchDate(String token, LocalDateTime defaultValue) {
-        String dateInString = searchParameterByToken(token);
+        String dateInString = searchTokenValueForToken(token);
 
         if (dateInString == null || dateInString.equals("")) {
             return defaultValue;
@@ -87,33 +87,33 @@ public class LogGroupCommand extends Command {
 
     }
 
-    private Set<String> searchParametersByToken(String token) {
-        final int PARAMETER_POSITION = 1;
+    private Set<String> searchTokenValueByToken(String token) {
+        final int TOKEN_VALUE_POSITION = 1;
         Set<String> result = new HashSet<>();
         for (String commandParameter : commandParameters) {
             if (commandParameter.contains(token)) {
-                checkParamsCount(commandParameter);
-                result.add(commandParameter.split(PARAMETERS_SEPARATOR)[PARAMETER_POSITION]);
+                checkTokenValueCount(commandParameter);
+                result.add(commandParameter.split(PARAMETERS_SEPARATOR)[TOKEN_VALUE_POSITION]);
             }
         }
         return result;
     }
 
-    private String searchParameterByToken(String token) {
-        final int PARAMETER_POSITION = 1;
+    private String searchTokenValueForToken(String token) {
+        final int TOKEN_VALUE_POSITION = 1;
         for (String commandParameter : commandParameters) {
             if (commandParameter.contains(token)) {
-                checkParamsCount(commandParameter);
-                return commandParameter.split(PARAMETERS_SEPARATOR)[PARAMETER_POSITION];
+                checkTokenValueCount(commandParameter);
+                return commandParameter.split(PARAMETERS_SEPARATOR)[TOKEN_VALUE_POSITION];
             }
         }
         return "";
     }
 
-    private void checkParamsCount(String commandParameter) {
-        final int EXPECTED_COUNT_PARAMETER = 2;
+    private void checkTokenValueCount(String commandParameter) {
+        final int EXPECTED_COUNT = 2;
         String[] params = commandParameter.split(PARAMETERS_SEPARATOR);
-        if (params.length > EXPECTED_COUNT_PARAMETER){
+        if (params.length > EXPECTED_COUNT){
             throw new WrongCommandFormatException(String.format("You can't use more then one parameter for token %s", params[0]));
         }
     }

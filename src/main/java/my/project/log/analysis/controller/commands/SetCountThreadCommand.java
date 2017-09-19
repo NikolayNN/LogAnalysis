@@ -9,7 +9,7 @@ import my.project.log.analysis.view.View;
  */
 public class SetCountThreadCommand extends Command{
 
-    private final int COUNT_PARAMETER = 2;
+    private final int EXPECTED_PARAMETER_COUNT = 2;
 
     public SetCountThreadCommand(View view) {
         super(view);
@@ -22,10 +22,10 @@ public class SetCountThreadCommand extends Command{
     }
 
     private int getCountThread(){
-        final int POSITION_IN_COMMAND = 1;
-        checkNumberParameters(COUNT_PARAMETER);
+        final int VALUE_POSITION_IN_COMMAND = 1;
+        checkNumberParameters(EXPECTED_PARAMETER_COUNT);
         try {
-            return Integer.parseInt(getParameterByPosition(POSITION_IN_COMMAND));
+            return Integer.parseInt(getParameterByPosition(VALUE_POSITION_IN_COMMAND));
         }catch (NumberFormatException ex){
             throw new WrongCommandFormatException(ex.getMessage(), ex);
         }
